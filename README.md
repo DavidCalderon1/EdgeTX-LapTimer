@@ -4,12 +4,17 @@ The goal is to have an advanced lap timer on your EdgeTX compatible radio
 using as little controls as possible. It should be able to store race and
 lap data for analysis back at the computer.
 
-This project is Fork from https://github.com/jcowgar/opentx-laptimer <br>
-Thanks to jcowgar for all the previous work.<br>
+This project is Fork from https://github.com/Radiomaster-RC/EdgeTX-LapTimer <br>
+Thanks for all the previous work.<br>
 
 Original Credit to: <br>
 &ensp; Lap Timer by Jeremy Cowgar jeremy@cowgar.com <br>
 &ensp; https://github.com/jcowgar/opentx-laptimer<br><br>
+
+- Fork: <br>
+&ensp; Lap Timer by Radiomaster RC 72553722+RadioMasterRC@users.noreply.github.com<br>
+&ensp; https://github.com/Radiomaster-RC/EdgeTX-LapTimer<br><br>
+
 
 Screenshots
 ===========================
@@ -24,6 +29,9 @@ Screenshots
 <kbd><img src="ScreenShot/screen-6.bmp" height="128px"/></kbd>
 <br>
 <br>
+<kbd><img src="ScreenShot/screen-7.png" height="128px"/></kbd>
+<br>
+<br>
 
 
 Supported remote controls: 
@@ -33,13 +41,19 @@ Supported remote controls:
 - Radiomaster Zorro 
 - Radiomaster TX12/TX12 Mark II 
 - Radiomaster Pocket
+- Taranis X9D
+- Or any other radio with EdgeTX and a screen that fits
 
 Installation
 ------------
 
-1. Copy `SCRIPTS` and `SOUNDS` to the root directory of the SD card and merge them with the original directory.
-2. Copy your preferred audio file into the LAPTIME folder, replacing the default audio file there.
-3. On the SYS-Tools page in EdgeTX, select and enter the LapTimer lua script.
+1. Copy `SCRIPTS` folder to the root directory of the SD card and merge them with the original directory.
+2. Copy the folder `SOUNDS/LAPTIME` to your SD card's `SOUNDS/<LANG>/LAPTIME` folder. `<LANG>` should be abbreviation of you configured language. In the end you should have `SOUNDS/en/LAPTIME/better.wav` for example.
+3. Copy your preferred audio file into the `LAPTIME` folder, replacing the default audio file there.
+4. There are two ways to access the script:
+    - Option A. On the `SYSTEM -> Tools` page in EdgeTX, select and enter the Lap Timer lua script.
+    - Option B. Copy `SCRIPTS/TOOLS/LapTmr.lua` to your SD card's `SCRIPTS/TELEMETRY` folder. Create the folder if it does not exist.
+      - For any model you wish to enable the lap timer on, from the Telemetry setup screen, add a new screen, choose Script as the Type, and `LapTmr` for the script name.
 4. Enjoy it.
 
 Configuration
@@ -58,14 +72,16 @@ screen. Here, you can change a few key settings:
   ideal.
 * **Speak Better/Worse** - If *Yes*, your radio will say "Better" if the lap you just
   completed is faster than your previous lap or "Worse" if slower. You can alter these
-  sound files to your likings. They are located in the `SOUNDS/LAPTIME` directory and
+  sound files to your likings. They are located in the `SOUNDS/<LANG>/LAPTIME` directory and
   are named `better.wav` and `worse.wav`.
 * **Speak Lap Number** - If *Yes*, when a lap is completed, that number will be spoken.
+* **Speak Lap Time** - If *Yes*, when a lap is completed, that lap time will be spoken.
 * **Beep At Half Lap** - If *Yes*, a long beep will occur when you reach the mid way point
   of the lap as defined by half of your last laps time. For example, say your last lap was
   60 seconds exactly. At 30 seconds you will hear a long beep. If you are further than
   1/2 way around the course, then you are doing better than you did last lap. If, however,
   you are not yet to the half way point, you are doing worse than you did last lap.
+* **CSV Separator** - Select between comma and semicolon for the CSV data separator.
 
 Usage
 -----
@@ -80,23 +96,23 @@ When first entering the Lap Timer screen, you will be presented with the
 the value and go to the *Timing* page.
 
 The timer will automatically start when the throttle becomes active. To mark
-the completion of a lap, pull the SG momentary switch. Once you have completed
+the completion of a lap, pull the Lap Switch (The first lap is considered the holeshot). Once you have completed
 all of the laps, the *Post Race* page will appear.
 
 On the *Post Race* page you will see a summary of your race including lap
-times, average time, total time and the number of laps completed. You can then
+times, average time, total time, the number of laps completed, holeshot time, average throttle and throttle 100% count. You can then
 use the *Plus* and *Minus* keys to select *Save* or *Discard.* If you choose
 *Save*, your race and lap details are appended to a file on your SD card named
-`laps.csv` in the following format:
+`LAPTIME.csv` in the following format:
 
-  1. Start Time (YYYY-MM-DD HH:MM:SS)
-  2. Lap Number
+  1. Date (YYYY-MM-DD HH:MM:SS)
+  2. Lap Number (0 is holeshot)
   3. Lap Count (total laps for race)
-  4. Time (in milliseconds, divide by 1,000 to get seconds)
+  4. Time (MM:SS.mmm)
   5. Average Throttle
+  6. Throttle 100% Count
 
-**NOTE**: At this time, average throttle is not calculated but it is planned and
-added to the CSV export to allow for easy future addition.
+      An additional row is added with the general data for each race.
 
 Special Actions
 ---------------
