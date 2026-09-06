@@ -249,9 +249,9 @@ local function config_cycle_editing_value(keyEvent)
 		end
 	end
 	
-	if keyEvent == EVT_ROT_LEFT then
+	if keyEvent == EVT_VIRTUAL_DEC then
 		idx = idx - 1
-	elseif keyEvent == EVT_ROT_RIGHT then
+	elseif keyEvent == EVT_VIRTUAL_INC then
 		idx = idx + 1
 	end
 	
@@ -291,19 +291,19 @@ local function configuration_func(keyEvent)
 	
 	elseif ConfigEditing and 
 		(
-			keyEvent == EVT_ROT_LEFT or keyEvent == EVT_ROT_RIGHT 
+			keyEvent == EVT_VIRTUAL_DEC or keyEvent == EVT_VIRTUAL_INC 
 		)
 	then
 		config_cycle_editing_value(keyEvent)
 	
-	elseif keyEvent == EVT_ROT_LEFT  then
+	elseif keyEvent == EVT_VIRTUAL_DEC  then
 		ConfigCurrentField = ConfigCurrentField - 1
 		
 		if ConfigCurrentField < CONFIG_FIELD_THROTTLE then
 			ConfigCurrentField = CONFIG_FIELD_CSV_SEPARATOR
 		end
 
-	elseif keyEvent == EVT_ROT_RIGHT  then
+	elseif keyEvent == EVT_VIRTUAL_INC  then
 		ConfigCurrentField = ConfigCurrentField + 1
 		
 		if ConfigCurrentField > CONFIG_FIELD_CSV_SEPARATOR then
@@ -467,10 +467,10 @@ local function race_setup_draw()
 end
 
 local function race_setup_func(keyEvent)
-	if keyEvent == EVT_ROT_RIGHT  then
+	if keyEvent == EVT_VIRTUAL_INC  then
 		lapCount = lapCount + 1
 
-	elseif keyEvent == EVT_ROT_LEFT then
+	elseif keyEvent == EVT_VIRTUAL_DEC then
 		lapCount = lapCount - 1
 
 	elseif keyEvent == EVT_VIRTUAL_NEXT_PAGE or  keyEvent == EVT_VIRTUAL_PREV_PAGE  then
@@ -796,7 +796,7 @@ local post_race_option = PR_SAVE
 local function post_race_func(keyEvent)
 	local stats = laps_compute_stats()
 
-	if keyEvent == EVT_ROT_LEFT or keyEvent == EVT_ROT_RIGHT 
+	if keyEvent == EVT_VIRTUAL_DEC or keyEvent == EVT_VIRTUAL_INC 
 	then
 		if post_race_option == PR_SAVE then
 			post_race_option = PR_DISCARD
